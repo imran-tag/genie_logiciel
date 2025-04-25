@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Steps</title>
+</head>
+<body>
+<h1 th:text="'Steps for ' + ${name}"></h1>
+<ol>
+    <li th:each="step: ${steps}">
+        <p th:text="${step.name}"></p>
+        <a th:href="@{/test/steps/remove/{id}/{stepId}(id=${id}, stepId=${step.id})}">Remove</a>
+    </li>
+    <form method="post" th:action="@{/test/steps/list/{id}(id=${id})}" accept-charset="utf-8">
+        <input name="name" placeholder="Name" type="text">
+        <input name="description" placeholder="Description" type="textArea">
+        <input type="submit" value="Add">
+    </form>
+    <a href="/">back</a>
+</ol>
+</body>
+</html>

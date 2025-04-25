@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Create a new test</title>
+
+    <script src="/resources/js/test/create.js"></script>
+</head>
+<body>
+<form method="post" onsubmit="formSubmit(event)" th:action="@{/test/create}" accept-charset="utf-8">
+    <label for="name">Name:</label>
+    <input id="name" name="name" required type="text">
+    <br>
+    <label for="description">Description:</label>
+    <input id="description" name="description" required type="text">
+    <br>
+
+    <input type="submit" value="Create">
+
+    <a href="/test/list">back</a>
+</form>
+</body>
+</html>

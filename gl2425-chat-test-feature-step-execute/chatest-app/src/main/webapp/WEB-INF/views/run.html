@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Test: ' + ${test.name}">Execution</title>
+</head>
+<body>
+<h1 th:text="'Étape ' + (${index} + 1) + ' sur ' + ${test.step.size()}"></h1>
+<h2 th:text="${step.name}">Nom de l'étape</h2>
+<p th:text="${step.content}">Contenu de l'étape</p>
+
+<div th:if="${step.status != null}">
+    <p>Status : <b th:text="${step.status}"></b></p>
+    <p th:if="${step.comment != null}">Commentaire : <i th:text="${step.comment}"></i></p>
+    <br/>
+    <a th:href="@{/test/run/{id}/{index}(id=${test.id}, index=${index + 1})}"
+       th:if="${step.status == 'OK' and !isLast}">
+         Étape suivante
+    </a>
+</div>
+
+<div th:if="${step.status == null}">
+    <form th:action="@{/test/run/{id}/{index}/validate(id=${test.id}, index=${index})}" method="post">
+        <button name="status" value="OK" type="submit">OK</button>
+    </form>
+
+    <button onclick="document.getElementById('ko-form').style.display='block'"> KO</button>
+
+    <form th:action="@{/test/run/{id}/{index}/validate(id=${test.id}, index=${index})}" method="post" id="ko-form" style="display:none;">
+        <input type="hidden" name="status" value="KO"/>
+        <label for="comment">Pourquoi cette étape ne peut pas être validée</label><br/>
+        <textarea name="comment" rows="4" cols="50" required></textarea><br/>
+        <button type="submit">Envoyer</button>
+    </form>
+</div>
+
+<br><br>
+<a href="/test/list"> Retour à la liste des tests</a>
+</body>
+</html>
