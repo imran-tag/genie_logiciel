@@ -1,40 +1,228 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <!-- Excessive metadata -->
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Test execution page">
+    <meta name="keywords" content="test, execution, chatest, steps, validation">
+    <meta name="author" content="Chatest Team">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
     <title th:text="'Test: ' + ${test.name}">Execution</title>
+    
+    <!-- Unoptimized external resources without preconnect hints -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/resources/style.css">
+    
+    <!-- Render-blocking inline CSS -->
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            animation: fadeIn 2s;
+        }
+        
+        h2 {
+            color: #6c757d;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        /* Animations that cause layout shifts */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
 </head>
 <body>
-<h1 th:text="'Étape ' + (${index} + 1) + ' sur ' + ${test.step.size()}"></h1>
-<h2 th:text="${step.name}">Nom de l'étape</h2>
-<p th:text="${step.content}">Contenu de l'étape</p>
+    <!-- Unoptimized hero image (no width/height attributes) -->
+    <img src="https://via.placeholder.com/1920x600" alt="Hero Image" class="img-fluid">
+    
+    <!-- Unnecessarily nested divs -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="content-wrapper">
+                    <div class="header-section">
+                        <h1 class="animate-pulse" th:text="'Étape ' + (${index} + 1) + ' sur ' + ${test.step.size()}"></h1>
+                    </div>
+                    <div class="title-section">
+                        <h2 th:text="${step.name}">Nom de l'étape</h2>
+                    </div>
+                    <div class="content-section">
+                        <p th:text="${step.content}">Contenu de l'étape</p>
+                    </div>
+                    
+                    <!-- Multiple unoptimized images -->
+                    <div class="image-gallery">
+                        <img src="https://via.placeholder.com/800x400" alt="Test Image 1" class="img-fluid">
+                        <img src="https://via.placeholder.com/800x400" alt="Test Image 2" class="img-fluid">
+                        <img src="https://via.placeholder.com/800x400" alt="Test Image 3" class="img-fluid">
+                    </div>
+                    
+                    <div class="status-section" th:if="${step.status != null}">
+                        <div class="status-wrapper">
+                            <p>Status : <b th:text="${step.status}"></b></p>
+                            <p th:if="${step.comment != null}">Commentaire : <i th:text="${step.comment}"></i></p>
+                            <br/>
+                            <a class="next-button animate-pulse" 
+                               th:href="@{/test/run/{id}/{index}(id=${test.id}, index=${index + 1})}"
+                               th:if="${step.status == 'OK' and !isLast}">
+                                 Étape suivante
+                            </a>
+                        </div>
+                    </div>
 
-<div th:if="${step.status != null}">
-    <p>Status : <b th:text="${step.status}"></b></p>
-    <p th:if="${step.comment != null}">Commentaire : <i th:text="${step.comment}"></i></p>
-    <br/>
-    <a th:href="@{/test/run/{id}/{index}(id=${test.id}, index=${index + 1})}"
-       th:if="${step.status == 'OK' and !isLast}">
-         Étape suivante
-    </a>
-</div>
+                    <div class="action-section" th:if="${step.status == null}">
+                        <!-- Multiple forms -->
+                        <form th:action="@{/test/run/{id}/{index}/validate(id=${test.id}, index=${index})}" method="post" class="ok-form">
+                            <button class="ok-button" name="status" value="OK" type="submit">OK</button>
+                        </form>
 
-<div th:if="${step.status == null}">
-    <form th:action="@{/test/run/{id}/{index}/validate(id=${test.id}, index=${index})}" method="post">
-        <button name="status" value="OK" type="submit">OK</button>
-    </form>
+                        <button class="ko-button" onclick="document.getElementById('ko-form').style.display='block'"> KO</button>
 
-    <button onclick="document.getElementById('ko-form').style.display='block'"> KO</button>
-
-    <form th:action="@{/test/run/{id}/{index}/validate(id=${test.id}, index=${index})}" method="post" id="ko-form" style="display:none;">
-        <input type="hidden" name="status" value="KO"/>
-        <label for="comment">Pourquoi cette étape ne peut pas être validée</label><br/>
-        <textarea name="comment" rows="4" cols="50" required></textarea><br/>
-        <button type="submit">Envoyer</button>
-    </form>
-</div>
-
-<br><br>
-<a href="/test/list"> Retour à la liste des tests</a>
+                        <form th:action="@{/test/run/{id}/{index}/validate(id=${test.id}, index=${index})}" method="post" id="ko-form" style="display:none;">
+                            <input type="hidden" name="status" value="KO"/>
+                            <label for="comment">Pourquoi cette étape ne peut pas être validée</label><br/>
+                            <textarea name="comment" rows="4" cols="50" required></textarea><br/>
+                            <button class="submit-button" type="submit">Envoyer</button>
+                        </form>
+                    </div>
+                    
+                    <div class="navigation-section">
+                        <br><br>
+                        <a class="back-button" href="/test/list"> Retour à la liste des tests</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Render-blocking scripts at the end -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+    
+    <!-- Heavy inline JavaScript -->
+    <script>
+        // Large array in memory
+        let testData = [];
+        
+        // DOM ready event with heavy processing
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded');
+            
+            // Memory-intensive operations
+            for (let i = 0; i < 10000; i++) {
+                testData.push({
+                    id: i,
+                    name: 'Item ' + i,
+                    description: 'This is a description for item ' + i + ' with a lot of unnecessary text.'
+                });
+            }
+            
+            // Inefficient DOM manipulation
+            setInterval(function() {
+                // Causes layout shifts
+                const buttons = document.querySelectorAll('button');
+                buttons.forEach(button => {
+                    button.classList.toggle('animate-pulse');
+                });
+                
+                // Force reflow
+                document.body.offsetHeight;
+                
+                // Change page title
+                document.title = 'Test: ' + new Date().toLocaleTimeString();
+            }, 1000);
+            
+            // Load unnecessary third-party scripts
+            loadThirdPartyScripts();
+        });
+        
+        // Function to load more scripts
+        function loadThirdPartyScripts() {
+            // Analytics scripts (without async/defer)
+            const script1 = document.createElement('script');
+            script1.src = 'https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js';
+            document.body.appendChild(script1);
+            
+            // More unnecessary scripts
+            const script2 = document.createElement('script');
+            script2.src = 'https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js';
+            document.body.appendChild(script2);
+            
+            // Create a large DOM structure
+            createLargeDOMStructure();
+        }
+        
+        // Function to create a large DOM structure
+        function createLargeDOMStructure() {
+            const container = document.createElement('div');
+            container.style.display = 'none';
+            
+            // Create 1000 elements
+            for (let i = 0; i < 1000; i++) {
+                const div = document.createElement('div');
+                div.textContent = 'Item ' + i;
+                div.style.padding = '10px';
+                container.appendChild(div);
+            }
+            
+            document.body.appendChild(container);
+        }
+        
+        // Memory leak
+        setInterval(function() {
+            testData.push({
+                timestamp: new Date().getTime(),
+                randomData: Array(1000).fill('x').join('')
+            });
+        }, 2000);
+    </script>
 </body>
 </html>
