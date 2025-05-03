@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="fr.uha.ensisa.gl.chatest.ChatTestTest" time="0.171" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="fr.uha.ensisa.gl.chatest.ChatTestTest" time="0.17" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="19"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="C:\Users\XPS\Downloads\gl2425-chat-test-feature-step-execute\gl2425-chat-test-feature-step-execute\chatest-models\target\test-classes;C:\Users\XPS\Downloads\gl2425-chat-test-feature-step-execute\gl2425-chat-test-feature-step-execute\chatest-models\target\classes;C:\Users\XPS\.m2\repository\org\junit\jupiter\junit-jupiter\5.13.0-M2\junit-jupiter-5.13.0-M2.jar;C:\Users\XPS\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.13.0-M2\junit-jupiter-api-5.13.0-M2.jar;C:\Users\XPS\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\XPS\.m2\repository\org\junit\platform\junit-platform-commons\1.13.0-M2\junit-platform-commons-1.13.0-M2.jar;C:\Users\XPS\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\XPS\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.13.0-M2\junit-jupiter-params-5.13.0-M2.jar;C:\Users\XPS\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.13.0-M2\junit-jupiter-engine-5.13.0-M2.jar;C:\Users\XPS\.m2\repository\org\junit\platform\junit-platform-engine\1.13.0-M2\junit-platform-engine-1.13.0-M2.jar;"/>
+    <property name="java.class.path" value="C:\Users\XPS\Downloads\gl2425-chat-test-feature-step-execute\gl2425-chat-test-feature-step-execute\chatest-models\target\test-classes;C:\Users\XPS\Downloads\gl2425-chat-test-feature-step-execute\gl2425-chat-test-feature-step-execute\chatest-models\target\classes;C:\Users\XPS\.m2\repository\org\junit\jupiter\junit-jupiter\5.13.0-M3\junit-jupiter-5.13.0-M3.jar;C:\Users\XPS\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.13.0-M3\junit-jupiter-api-5.13.0-M3.jar;C:\Users\XPS\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\XPS\.m2\repository\org\junit\platform\junit-platform-commons\1.13.0-M3\junit-platform-commons-1.13.0-M3.jar;C:\Users\XPS\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\XPS\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.13.0-M3\junit-jupiter-params-5.13.0-M3.jar;C:\Users\XPS\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.13.0-M3\junit-jupiter-engine-5.13.0-M3.jar;C:\Users\XPS\.m2\repository\org\junit\platform\junit-platform-engine\1.13.0-M3\junit-platform-engine-1.13.0-M3.jar;"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
@@ -15,9 +15,9 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-19\bin"/>
-    <property name="sun.java.command" value="C:\Users\XPS\AppData\Local\Temp\surefire1478246129918396668\surefirebooter-20250429231543230_3.jar C:\Users\XPS\AppData\Local\Temp\surefire1478246129918396668 2025-04-29T23-15-42_782-jvmRun1 surefire-20250429231543230_1tmp surefire_0-20250429231543230_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\XPS\AppData\Local\Temp\surefire4284783396473317706\surefirebooter-20250504000420572_3.jar C:\Users\XPS\AppData\Local\Temp\surefire4284783396473317706 2025-05-04T00-04-20_113-jvmRun1 surefire-20250504000420572_1tmp surefire_0-20250504000420572_2tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="C:\Users\XPS\Downloads\gl2425-chat-test-feature-step-execute\gl2425-chat-test-feature-step-execute\chatest-models\target\test-classes;C:\Users\XPS\Downloads\gl2425-chat-test-feature-step-execute\gl2425-chat-test-feature-step-execute\chatest-models\target\classes;C:\Users\XPS\.m2\repository\org\junit\jupiter\junit-jupiter\5.13.0-M2\junit-jupiter-5.13.0-M2.jar;C:\Users\XPS\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.13.0-M2\junit-jupiter-api-5.13.0-M2.jar;C:\Users\XPS\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\XPS\.m2\repository\org\junit\platform\junit-platform-commons\1.13.0-M2\junit-platform-commons-1.13.0-M2.jar;C:\Users\XPS\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\XPS\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.13.0-M2\junit-jupiter-params-5.13.0-M2.jar;C:\Users\XPS\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.13.0-M2\junit-jupiter-engine-5.13.0-M2.jar;C:\Users\XPS\.m2\repository\org\junit\platform\junit-platform-engine\1.13.0-M2\junit-platform-engine-1.13.0-M2.jar;"/>
+    <property name="surefire.test.class.path" value="C:\Users\XPS\Downloads\gl2425-chat-test-feature-step-execute\gl2425-chat-test-feature-step-execute\chatest-models\target\test-classes;C:\Users\XPS\Downloads\gl2425-chat-test-feature-step-execute\gl2425-chat-test-feature-step-execute\chatest-models\target\classes;C:\Users\XPS\.m2\repository\org\junit\jupiter\junit-jupiter\5.13.0-M3\junit-jupiter-5.13.0-M3.jar;C:\Users\XPS\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.13.0-M3\junit-jupiter-api-5.13.0-M3.jar;C:\Users\XPS\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\XPS\.m2\repository\org\junit\platform\junit-platform-commons\1.13.0-M3\junit-platform-commons-1.13.0-M3.jar;C:\Users\XPS\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\XPS\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.13.0-M3\junit-jupiter-params-5.13.0-M3.jar;C:\Users\XPS\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.13.0-M3\junit-jupiter-engine-5.13.0-M3.jar;C:\Users\XPS\.m2\repository\org\junit\platform\junit-platform-engine\1.13.0-M3\junit-platform-engine-1.13.0-M3.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\XPS"/>
     <property name="user.language" value="en"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\XPS\AppData\Local\Temp\surefire1478246129918396668\surefirebooter-20250429231543230_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\XPS\AppData\Local\Temp\surefire4284783396473317706\surefirebooter-20250504000420572_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="19.0.2+7-44"/>
@@ -58,5 +58,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="63.0"/>
   </properties>
-  <testcase name="setName" classname="fr.uha.ensisa.gl.chatest.ChatTestTest" time="0.088"/>
+  <testcase name="setName" classname="fr.uha.ensisa.gl.chatest.ChatTestTest" time="0.1"/>
 </testsuite>
