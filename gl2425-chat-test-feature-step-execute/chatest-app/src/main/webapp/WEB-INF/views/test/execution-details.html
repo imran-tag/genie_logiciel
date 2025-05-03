@@ -11,6 +11,7 @@
     
     <div class="mb-3">
         <a href="/test/history" class="btn btn-primary">Back to History</a>
+        <a th:href="@{/test/history/test/{id}(id=${test.id})}" class="btn btn-info">View All Test Runs</a>
         <a th:href="@{/test/run/{id}/0(id=${test.id})}" class="btn btn-success">Run Test Again</a>
     </div>
     
@@ -48,7 +49,7 @@
             <p><strong>Test Name:</strong> <span th:text="${test.name}"></span></p>
             <p><strong>Description:</strong> <span th:text="${test.description}"></span></p>
             
-            <h4 class="mt-4">Test Steps</h4>
+            <h4 class="mt-4">Test Steps (Execution Results)</h4>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -59,15 +60,24 @@
                 </tr>
                 </thead>
                 <tbody>
+                <!-- Show each step with its status from the execution results -->
                 <tr th:each="step, stepStat : ${test.step}">
                     <td th:text="${stepStat.count}"></td>
                     <td th:text="${step.name}"></td>
                     <td>
-                        <span th:if="${step.status == 'OK'}" class="badge bg-success">OK</span>
-                        <span th:if="${step.status == 'KO'}" class="badge bg-danger">KO</span>
-                        <span th:if="${step.status == null}" class="badge bg-secondary">Not Run</span>
+                        <!-- Find the matching step result from the execution -->
+                        <span th:with="stepResult=${execution.stepResults.stream().filter(sr -> sr.getStepId() == step.id).findFirst().orElse(null)}">
+                            <span th:if="${stepResult != null && stepResult.getStatus() == 'OK'}" class="badge bg-success">OK</span>
+                            <span th:if="${stepResult != null && stepResult.getStatus() == 'KO'}" class="badge bg-danger">KO</span>
+                            <span th:if="${stepResult == null}" class="badge bg-secondary">Not Run</span>
+                        </span>
                     </td>
-                    <td th:text="${step.comment != null ? step.comment : '-'}"></td>
+                    <td>
+                        <!-- Find the matching step result from the execution for the comment -->
+                        <span th:with="stepResult=${execution.stepResults.stream().filter(sr -> sr.getStepId() == step.id).findFirst().orElse(null)}">
+                            <span th:text="${stepResult != null && stepResult.getComment() != null ? stepResult.getComment() : '-'}"></span>
+                        </span>
+                    </td>
                 </tr>
                 </tbody>
             </table>

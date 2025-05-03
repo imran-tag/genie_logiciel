@@ -7,9 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/test/history")
@@ -23,12 +23,21 @@ public class TestExecutionController {
 
     @GetMapping
     public String showHistory(Model model) {
-        // Get all test executions and sort them: failed first, then by date (newest first)
-        List<TestExecution> executions = daoFactory.getTestExecutionDao().findAll().stream()
-                .sorted(Comparator
-                        .comparing(TestExecution::getStatus).reversed() // "FAILED" comes before "PASSED" alphabetically
-                        .thenComparing(TestExecution::getExecutionDate, Comparator.reverseOrder()))
-                .collect(Collectors.toList());
+        // Get all test executions
+        List<TestExecution> executions = new ArrayList<>(daoFactory.getTestExecutionDao().findAll());
+        
+        // Sort them: failed first, then by date (newest first)
+        executions.sort((e1, e2) -> {
+            // First compare by status (FAILED before PASSED)
+            if ("FAILED".equals(e1.getStatus()) && !"FAILED".equals(e2.getStatus())) {
+                return -1; // e1 comes first
+            } else if (!"FAILED".equals(e1.getStatus()) && "FAILED".equals(e2.getStatus())) {
+                return 1; // e2 comes first
+            } else {
+                // If statuses are the same, compare by date (newest first)
+                return e2.getExecutionDate().compareTo(e1.getExecutionDate());
+            }
+        });
 
         model.addAttribute("executions", executions);
         return "test/history";
@@ -44,6 +53,12 @@ public class TestExecutionController {
         // Get the test details
         ChatTest test = daoFactory.getTestDao().find(execution.getTestId());
         
+        // If the execution doesn't have step results (older executions before this update),
+        // display a message to the user
+        if (execution.getStepResults() == null || execution.getStepResults().isEmpty()) {
+            model.addAttribute("noStepResults", true);
+        }
+        
         model.addAttribute("execution", execution);
         model.addAttribute("test", test);
         return "test/execution-details";
@@ -57,11 +72,20 @@ public class TestExecutionController {
         }
         
         // Get all executions for this test
-        List<TestExecution> executions = daoFactory.getTestExecutionDao().findByTestId(testId).stream()
-                .sorted(Comparator
-                        .comparing(TestExecution::getStatus).reversed()
-                        .thenComparing(TestExecution::getExecutionDate, Comparator.reverseOrder()))
-                .collect(Collectors.toList());
+        List<TestExecution> executions = new ArrayList<>(daoFactory.getTestExecutionDao().findByTestId(testId));
+        
+        // Sort by status (FAILED before PASSED) and date (newest first)
+        executions.sort((e1, e2) -> {
+            // First compare by status (FAILED before PASSED)
+            if ("FAILED".equals(e1.getStatus()) && !"FAILED".equals(e2.getStatus())) {
+                return -1; // e1 comes first
+            } else if (!"FAILED".equals(e1.getStatus()) && "FAILED".equals(e2.getStatus())) {
+                return 1; // e2 comes first
+            } else {
+                // If statuses are the same, compare by date (newest first)
+                return e2.getExecutionDate().compareTo(e1.getExecutionDate());
+            }
+        });
         
         model.addAttribute("test", test);
         model.addAttribute("executions", executions);
