@@ -2,28 +2,43 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Create a new test</title>
-
+    <title>Test List</title>
+    <link rel="stylesheet" href="/libs/bootstrap.min.css">
 </head>
 <body>
-<a href="/test/create">Create a new test</a>
-<h1>Test list</h1>
-<table>
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Edit steps</th>
-    </tr>
-    <tr th:each="test : ${tests}">
-        <td th:text="${test.id}"></td>
-        <td th:text="${test.name}"></td>
-        <td th:text="${test.description}"></td>
-        <td><a th:href="@{/test/steps/list/{id}(id=${test.id})}">Edit steps</a></td>
-        <td>
-            <a th:href="@{/test/run/{id}/0(id=${test.id})}">Run</a>
-        </td>
-    </tr>
-</table>
+<div class="container">
+    <h1 class="mt-4 mb-4">Test List</h1>
+    
+    <div class="mb-3">
+        <a href="/test/create" class="btn btn-primary">Create a new test</a>
+        <a href="/test/history" class="btn btn-info">View Test Execution History</a>
+    </div>
+    
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th colspan="3">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="test : ${tests}">
+                    <td th:text="${test.id}"></td>
+                    <td th:text="${test.name}"></td>
+                    <td th:text="${test.description}"></td>
+                    <td><a th:href="@{/test/steps/list/{id}(id=${test.id})}" class="btn btn-sm btn-secondary">Edit steps</a></td>
+                    <td><a th:href="@{/test/run/{id}/0(id=${test.id})}" class="btn btn-sm btn-success">Run</a></td>
+                    <td><a th:href="@{/test/history/test/{id}(id=${test.id})}" class="btn btn-sm btn-info">History</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="/libs/bootstrap.bundle.min.js"></script>
 </body>
 </html>

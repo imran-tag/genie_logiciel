@@ -1,0 +1,7 @@
+fr\uha\ensisa\gl\chatest\controller\HomeController.class
+fr\uha\ensisa\gl\chatest\controller\TestStepList.class
+fr\uha\ensisa\gl\chatest\config\MvcConfiguration.class
+fr\uha\ensisa\gl\chatest\controller\TestListController.class
+fr\uha\ensisa\gl\chatest\controller\TestCreateController.class
+fr\uha\ensisa\gl\chatest\controller\TestExecutionController.class
+fr\uha\ensisa\gl\chatest\controller\TestRunController.class

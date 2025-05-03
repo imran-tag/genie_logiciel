@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Execution Details</title>
+    <link rel="stylesheet" href="/libs/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-4 mb-4">Test Execution Details</h1>
+    
+    <div class="mb-3">
+        <a href="/test/history" class="btn btn-primary">Back to History</a>
+        <a th:href="@{/test/run/{id}/0(id=${test.id})}" class="btn btn-success">Run Test Again</a>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Execution Information</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Execution ID:</strong> <span th:text="${execution.id}"></span></p>
+                    <p><strong>Test ID:</strong> <span th:text="${execution.testId}"></span></p>
+                    <p><strong>Test Name:</strong> <span th:text="${execution.testName}"></span></p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Status:</strong>
+                        <span th:if="${execution.status == 'PASSED'}" class="badge bg-success">PASSED</span>
+                        <span th:if="${execution.status == 'FAILED'}" class="badge bg-danger">FAILED</span>
+                    </p>
+                    <p><strong>Execution Date:</strong> <span th:text="${#dates.format(execution.executionDate, 'yyyy-MM-dd HH:mm:ss')}"></span></p>
+                </div>
+            </div>
+            
+            <div th:if="${execution.comment}" class="alert alert-warning mt-3">
+                <strong>Comment:</strong> <span th:text="${execution.comment}"></span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Test Information</h3>
+        </div>
+        <div class="card-body">
+            <p><strong>Test Name:</strong> <span th:text="${test.name}"></span></p>
+            <p><strong>Description:</strong> <span th:text="${test.description}"></span></p>
+            
+            <h4 class="mt-4">Test Steps</h4>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Step Name</th>
+                    <th>Status</th>
+                    <th>Comment</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="step, stepStat : ${test.step}">
+                    <td th:text="${stepStat.count}"></td>
+                    <td th:text="${step.name}"></td>
+                    <td>
+                        <span th:if="${step.status == 'OK'}" class="badge bg-success">OK</span>
+                        <span th:if="${step.status == 'KO'}" class="badge bg-danger">KO</span>
+                        <span th:if="${step.status == null}" class="badge bg-secondary">Not Run</span>
+                    </td>
+                    <td th:text="${step.comment != null ? step.comment : '-'}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="/libs/bootstrap.bundle.min.js"></script>
+</body>
+</html>

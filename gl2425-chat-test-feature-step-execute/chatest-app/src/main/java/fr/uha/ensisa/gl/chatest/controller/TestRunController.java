@@ -2,6 +2,7 @@ package fr.uha.ensisa.gl.chatest.controller;
 
 import fr.uha.ensisa.gl.chatest.ChatStep;
 import fr.uha.ensisa.gl.chatest.ChatTest;
+import fr.uha.ensisa.gl.chatest.TestExecution;
 import fr.uha.ensisa.gl.chatest.dao.chatest.IDaoFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,16 +58,34 @@ public class TestRunController {
             return "redirect:/test/list";
         }
 
-        ChatStep step = test.getStep().get(stepIndex);
+        List<ChatStep> steps = test.getStep();
+        if (stepIndex < 0 || stepIndex >= steps.size()) {
+            return "redirect:/test/list";
+        }
+
+        ChatStep step = steps.get(stepIndex);
         step.setStatus(status);
         if ("KO".equals(status)) {
             step.setComment(comment);
+            
+            // Create a failed test execution record
+            TestExecution execution = new TestExecution(testId, test.getName(), "FAILED");
+            execution.setComment("Failed at step " + (stepIndex + 1) + ": " + step.getName() + 
+                                (comment != null ? " - " + comment : ""));
+            daoFactory.getTestExecutionDao().persist(execution);
+            
+            return "redirect:/test/run/" + testId + "/" + stepIndex;
         }
 
-        if ("OK".equals(status) && stepIndex + 1 < test.getStep().size()) {
-            return "redirect:/test/run/" + testId + "/" + (stepIndex + 1);
+        // If this is the last step and status is OK, the test is passed
+        if (stepIndex == steps.size() - 1) {
+            TestExecution execution = new TestExecution(testId, test.getName(), "PASSED");
+            daoFactory.getTestExecutionDao().persist(execution);
+            
+            return "redirect:/test/history";
         }
 
-        return "redirect:/test/run/" + testId + "/" + stepIndex;
+        // Otherwise, move to the next step
+        return "redirect:/test/run/" + testId + "/" + (stepIndex + 1);
     }
 }
