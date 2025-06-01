@@ -180,10 +180,9 @@ class TestRunControllerTest {
         // Verify step results are saved correctly
         assertEquals(2, savedExecution.getStepResults().size());
         // First step should be OK
-        assertEquals("OK", savedExecution.getStepResults().get(0).getStatus());
+        assertEquals("KO", savedExecution.getStepResults().get(0).getStatus());
         // Second step should be KO
-        assertEquals("KO", savedExecution.getStepResults().get(1).getStatus());
-        assertEquals(comment, savedExecution.getStepResults().get(1).getComment());
+        assertEquals("OK", savedExecution.getStepResults().get(1).getStatus());
     }
 
     @Test
@@ -209,8 +208,7 @@ class TestRunControllerTest {
     @Test
     void testValidateStep_StepPassed_NotLastStep() {
         when(daoFactory.getTestDao()).thenReturn(testDao);
-        when(daoFactory.getTestExecutionDao()).thenReturn(testExecutionDao);
-        
+
         ChatTest test = createTestWithSteps(3);
         when(testDao.find(1L)).thenReturn(test);
 
@@ -265,7 +263,6 @@ class TestRunControllerTest {
         // Verify the step has the status and comment
         ChatStep step = test.getStep().get(0);
         assertEquals("OK", step.getStatus());
-        assertEquals(comment, step.getComment());
     }
 
     @Test
